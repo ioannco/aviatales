@@ -47,7 +47,7 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
-    public List<Client> getByFilter(String firstName, String lastName, String middleName, String phoneNumber, String email, String address) {
+    public List<Client> getByFilter(String firstName, String middleName, String lastName, String phoneNumber, String email, String address) {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<Client> criteriaQuery = builder.createQuery(Client.class);
         Root<Client> root = criteriaQuery.from(Client.class);

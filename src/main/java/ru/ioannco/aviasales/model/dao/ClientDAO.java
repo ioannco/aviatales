@@ -9,5 +9,5 @@ public interface ClientDAO {
     void update(Client client);
     void delete(Client client);
     List<Client> getAll();
-    List<Client> getByFilter(String firstName, String lastName, String middleName, String phoneNumber, String email, String address);
+    List<Client> getByFilter(String firstName, String middleName, String lastName, String phoneNumber, String email, String address);
 }
