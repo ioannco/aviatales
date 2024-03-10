@@ -13,20 +13,18 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class HibernateDatabaseConfig {
-    @Value("${avia_db_url}")
+    @Value("${avia_db_url:localhost}")
     private String db_url;
     @Value("${avia_db_username}")
     private String db_username;
     @Value("${avia_db_password}")
     private String db_password;
-    @Value("${avia_db_schema}")
-    private String db_schema;
 
-    @Bean
+    @Bean(name = "entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(oraDataSource());
-        sessionFactory.setPackagesToScan("ru.ioannco.model.entity");
+        sessionFactory.setPackagesToScan("ru.ioannco.aviasales.model.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;
@@ -39,7 +37,6 @@ public class HibernateDatabaseConfig {
         dataSource.setUrl(db_url);
         dataSource.setUsername(db_username);
         dataSource.setPassword(db_password);
-        dataSource.setSchema(db_schema);
 
         return dataSource;
     }
@@ -49,7 +46,7 @@ public class HibernateDatabaseConfig {
         hibernateProperties.setProperty(
                 "hibernate.hbm2ddl.auto", "update");
         hibernateProperties.setProperty(
-                "hibernate.dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
+                "hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         hibernateProperties.setProperty("connection_pool_size", "1");
 
         return hibernateProperties;
