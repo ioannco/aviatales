@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "db.username",
+      "type": "java.lang.String",
+      "description": "Postgresql database username."
+    },
+    {
+      "name": "db.url",
+      "type": "java.lang.String",
+      "description": "PostgreSQL database url."
+    },
+    {
+      "name": "db.password",
+      "type": "java.lang.String",
+      "description": "PostgreSQL database password."
+    },
+    {
+      "name": "tests.test_property",
+      "type": "java.lang.String",
+      "description": "Property for test property annotation test."
+    }
+  ] }
