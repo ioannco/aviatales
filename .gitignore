@@ -36,3 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 /src/test/resources/test.properties
+/src/main/resources/db.properties
+/src/main/resources/application.properties
