@@ -2,7 +2,6 @@ package ru.ioannco.aviasales.model.dao.impl;
 
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
-import lombok.Builder;
 import org.springframework.stereotype.Repository;
 import ru.ioannco.aviasales.ReflectionTools;
 import ru.ioannco.aviasales.model.dao.ClientDAO;
@@ -17,7 +16,7 @@ import java.util.Optional;
 public class ClientDAOImpl extends BaseDAOImpl<Client> implements ClientDAO {
     @Override
     public List<Client> getByFilter(Filter filter) {
-        CriteriaQuery<Client> criteriaQuery = createAllCriteriaQuery(filter);
+        CriteriaQuery<Client> criteriaQuery = createFilterCriteriaQuery(filter);
         return getSession().createQuery(criteriaQuery).getResultList();
     }
 
@@ -32,14 +31,14 @@ public class ClientDAOImpl extends BaseDAOImpl<Client> implements ClientDAO {
 
     @Override
     public List<Client> getByFilterPaginated(Filter filter, int pageSize, int pageNumber) {
-        CriteriaQuery<Client> criteriaQuery = createAllCriteriaQuery(filter);
+        CriteriaQuery<Client> criteriaQuery = createFilterCriteriaQuery(filter);
         return getSession().createQuery(criteriaQuery)
                 .setMaxResults(pageSize)
                 .setFirstResult(pageSize * pageNumber)
                 .getResultList();
     }
 
-    private CriteriaQuery<Client> createAllCriteriaQuery(Filter filter) {
+    private CriteriaQuery<Client> createFilterCriteriaQuery(Filter filter) {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<Client> criteriaQuery = builder.createQuery(Client.class);
         Root<Client> root = criteriaQuery.from(Client.class);
