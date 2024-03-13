@@ -2,6 +2,7 @@ package ru.ioannco.aviasales.model.dao.impl;
 
 import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
+import lombok.Builder;
 import org.springframework.stereotype.Repository;
 import ru.ioannco.aviasales.ReflectionTools;
 import ru.ioannco.aviasales.model.dao.ClientDAO;
@@ -45,5 +46,10 @@ public class ClientDAOImpl extends BaseDAOImpl<Client> implements ClientDAO {
         List<Predicate> predicates = constructLikePredicates(builder, root, filter);
         criteriaQuery.select(root).where(predicates.toArray(new Predicate[0]));
         return criteriaQuery;
+    }
+
+    @Override
+    public Filter.FilterBuilder getFilterBuilder() {
+        return Filter.builder();
     }
 }
