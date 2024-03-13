@@ -14,8 +14,9 @@ import java.util.Optional;
 public class ReflectionTools {
     public static <T> Optional<Predicate> filterFieldToLikePredicate(CriteriaBuilder builder, Root<Client> root, Field filterField, T filter) {
         try {
-            if (!filterField.getDeclaringClass().isAssignableFrom(String.class))
+            if (!filterField.getType().isAssignableFrom(String.class))
                 return Optional.empty();
+            filterField.setAccessible(true);
             String field = (String) filterField.get(filter);
             String fieldName = filterField.getName();
             if (field != null && !field.isEmpty())
