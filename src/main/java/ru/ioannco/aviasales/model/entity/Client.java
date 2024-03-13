@@ -12,7 +12,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Client {
+public class Client implements BaseEntity{
     @Id
     @GeneratedValue
     public Long id;
