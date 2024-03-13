@@ -22,4 +22,6 @@ public interface ClientDAO extends BaseDAO<Client> {
         String email;
         String address;
     }
+
+    Filter.FilterBuilder getFilterBuilder();
 }
