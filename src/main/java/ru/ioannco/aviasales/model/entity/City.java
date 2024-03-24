@@ -17,6 +17,6 @@ public class City implements BaseEntity {
     private Long id;
 
     @NonNull
-    @Column(name = "verbose")
+    @Column(name = "verbose_name")
     private String verbose;
 }

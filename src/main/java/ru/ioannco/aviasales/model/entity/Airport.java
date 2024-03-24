@@ -21,7 +21,7 @@ public class Airport {
     private String code;
 
     @NonNull
-    @Column(name = "verbose")
+    @Column(name = "verbose_name")
     private String verbose;
 
     @NonNull
