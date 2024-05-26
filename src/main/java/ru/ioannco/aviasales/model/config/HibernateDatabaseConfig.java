@@ -13,8 +13,12 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class HibernateDatabaseConfig {
-    @Autowired
     DatabaseCredentialsConfig credentialsConfig;
+
+    @Autowired
+    public void setCredentials(DatabaseCredentialsConfig config) {
+        credentialsConfig = config;
+    }
 
     @Bean(name = "entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {

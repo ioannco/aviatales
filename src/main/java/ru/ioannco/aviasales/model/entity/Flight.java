@@ -58,7 +58,7 @@ public class Flight {
 
     @NonNull
     @Column(name = "created_dt")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDateTime;
 
     @PrePersist

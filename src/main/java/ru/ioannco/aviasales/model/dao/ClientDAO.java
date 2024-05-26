@@ -5,7 +5,6 @@ import lombok.Getter;
 import ru.ioannco.aviasales.model.entity.Client;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ClientDAO extends BaseDAO<Client> {
 
@@ -21,6 +20,8 @@ public interface ClientDAO extends BaseDAO<Client> {
         String phoneNumber;
         String email;
         String address;
+        String flightNo;
+        Boolean flightPayed;
     }
 
     Filter.FilterBuilder getFilterBuilder();

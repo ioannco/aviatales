@@ -26,6 +26,7 @@ public class Airport {
 
     @NonNull
     @ToString.Exclude
+
     @JoinColumn(name = "city")
     @ManyToOne(fetch = FetchType.EAGER)
     private City city;
