@@ -5,13 +5,16 @@ import lombok.Builder;
 import lombok.Getter;
 import ru.ioannco.aviasales.model.entity.Flight;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 public interface FlightDAO extends BaseDAO<Flight> {
 
-    // Метод для получения списка рейсов по фильтру с пагинацией и сортировкой
     List<Flight> getByFilter(Filter filter, int pageSize, int pageNumber, SortOrder sortOrder);
+
+    long countByFilter(Filter filter);
+
+    Filter.FilterBuilder getFilterBuilder();
 
     // Фильтр для поиска рейсов
     @Builder
@@ -47,7 +50,4 @@ public interface FlightDAO extends BaseDAO<Flight> {
         private final String field;
         private final boolean ascending;
     }
-
-    // Метод для создания билдера фильтра
-    Filter.FilterBuilder getFilterBuilder();
 }

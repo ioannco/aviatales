@@ -100,9 +100,7 @@ class FlightDAOTest {
                 .arrivalDate(arrivalDate)
                 .build();
 
-        List<Flight> flights = flightDAO.getByFilter(filter, 10,
-
-                0, FlightDAO.SortOrder.ARRIVAL_TIME_ASC);
+        List<Flight> flights = flightDAO.getByFilter(filter, 10, 0, FlightDAO.SortOrder.ARRIVAL_TIME_ASC);
 
         assertEquals(2, flights.size());
         assertTrue(flights.stream().allMatch(flight -> {
@@ -204,6 +202,17 @@ class FlightDAOTest {
 
         assertEquals(3, flights.size());
         assertTrue(flights.stream().allMatch(flight -> flight.getPrice() >= 100.0f && flight.getPrice() <= 120.0f));
+    }
+
+    @Test
+    void countByAirlineFilter() {
+        FlightDAO.Filter filter = flightDAO.getFilterBuilder()
+                .airline("Аэрофлот")
+                .build();
+
+        long count = flightDAO.countByFilter(filter);
+
+        assertEquals(2, count);
     }
 
     @AfterEach

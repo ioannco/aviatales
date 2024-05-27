@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Главная страница</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Шапка сайта -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Авиаперевозки</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Главная</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/flights">Авиарейсы</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/clients">Клиенты</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <h1 th:text="${greeting}">Приветствие</h1>
+  <p th:text="${description}">Краткое описание сервиса</p>
+
+  <form th:action="@{/flights}" method="get" class="form-inline">
+    <div class="form-group mb-2">
+      <label for="departureDate" class="sr-only">Дата вылета</label>
+      <input type="date" id="departureDate" name="departureDate" class="form-control" placeholder="Дата вылета">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="arrivalDate" class="sr-only">Дата прилета</label>
+      <input type="date" id="arrivalDate" name="arrivalDate" class="form-control" placeholder="Дата прилета">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="departureCity" class="sr-only">Город вылета</label>
+      <input type="text" id="departureCity" name="departureCity" class="form-control" placeholder="Город вылета">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="arrivalCity" class="sr-only">Город прилета</label>
+      <input type="text" id="arrivalCity" name="arrivalCity" class="form-control" placeholder="Город прилета">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="airline" class="sr-only">Авиакомпания</label>
+      <input type="text" id="airline" name="airline" class="form-control" placeholder="Авиакомпания">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="flightNumber" class="sr-only">Номер рейса</label>
+      <input type="text" id="flightNumber" name="flightNumber" class="form-control" placeholder="Номер рейса">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Поиск</button>
+  </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
