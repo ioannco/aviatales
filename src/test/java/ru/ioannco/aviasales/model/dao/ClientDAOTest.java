@@ -58,8 +58,8 @@ class ClientDAOTest {
         Airline airline2 = new Airline("Россия");
 
         // Creating flights
-        Flight flight1 = new Flight("FL001", airport1, airport2, new Date(), new Date(), 100.0f, 200, 150, new Date());
-        Flight flight2 = new Flight("FL002", airport2, airport1, new Date(), new Date(), 120.0f, 250, 200, new Date());
+        Flight flight1 = new Flight("FL001", airline1, airport1, airport2, new Date(), new Date(), 100.0f, 200, 150, new Date());
+        Flight flight2 = new Flight("FL002", airline1, airport2, airport1, new Date(), new Date(), 120.0f, 250, 200, new Date());
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();

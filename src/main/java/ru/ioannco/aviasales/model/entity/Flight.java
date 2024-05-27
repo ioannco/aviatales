@@ -15,7 +15,7 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode
 @Check(constraints = "passenger_count <= passenger_limit")
-public class Flight {
+public class Flight implements BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -23,6 +23,11 @@ public class Flight {
     @NonNull
     @Column(name = "no")
     private String number;
+
+    @NonNull
+    @JoinColumn(name = "airline_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Airline airline;
 
     @NonNull
     @JoinColumn(name = "departure_airport")
