@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class BonusCard {
+public class BonusCard implements BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
