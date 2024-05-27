@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BaseDAOTest {
 
     @Autowired
-    private TestEntityDAO testEntityDAO;
+    private BaseDAO<TestEntity> testEntityDAO;
 
     @Autowired
     private SessionFactory sessionFactory;

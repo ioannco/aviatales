@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Airport {
+public class Airport implements BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
