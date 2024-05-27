@@ -2,96 +2,106 @@ package ru.ioannco.aviasales.model.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import ru.ioannco.aviasales.model.entity.TestEntity;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource("classpath:test.properties")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class BaseDAOTest {
-    @Autowired
-    TestEntityDAO testEntityDAO;
+public class BaseDAOTest {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private TestEntityDAO testEntityDAO;
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    private TestEntity entity1;
+    private TestEntity entity2;
 
     @BeforeEach
     void setUp() {
-        List<TestEntity> entities = new ArrayList<>();
+        entity1 = new TestEntity("Test1");
+        entity2 = new TestEntity("Test2");
 
-        for (int i = 1; i <= 10; ++i) {
-            entities.add(
-                    new TestEntity("data" + i)
-            );
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(entity1);
+            session.save(entity2);
+            session.getTransaction().commit();
         }
-
-        testEntityDAO.saveAll(entities);
     }
 
     @AfterEach
     void tearDown() {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.createNativeQuery("TRUNCATE test RESTART IDENTITY", Object.class).executeUpdate();
+            session.createNativeQuery("TRUNCATE test_entity RESTART IDENTITY CASCADE", Object.class).executeUpdate();
             session.getTransaction().commit();
         }
     }
 
     @Test
-    void getByIdUpdate() {
-       TestEntity entity = testEntityDAO.getAll().getFirst();
-       long id = entity.getId();
+    void testSave() {
+        TestEntity entity = new TestEntity("Test3");
+        testEntityDAO.save(entity);
 
-       Optional<TestEntity> byIdOpt = testEntityDAO.getByID(id);
-       assertTrue(byIdOpt.isPresent());
-
-       TestEntity byId = byIdOpt.get();
-       assertEquals(entity, byId);
-
-       byId.setSampleData("updated");
-       testEntityDAO.update(byId);
-
-       Optional<TestEntity> updated = testEntityDAO.getByID(byId.getId());
-       assertTrue(updated.isPresent());
-       assertEquals(updated.get().getSampleData(), "updated");
+        Optional<TestEntity> retrievedEntity = testEntityDAO.getByID(entity.getId());
+        assertTrue(retrievedEntity.isPresent());
+        assertEquals("Test3", retrievedEntity.get().getSampleData());
     }
 
     @Test
-    void delete() {
-        TestEntity entity = testEntityDAO.getAll().getFirst();
-        testEntityDAO.delete(entity);
+    void testSaveAll() {
+        TestEntity entity3 = new TestEntity("Test3");
+        TestEntity entity4 = new TestEntity("Test4");
+        testEntityDAO.saveAll(List.of(entity3, entity4));
 
-        assertEquals(testEntityDAO.count(), 9);
-        assertFalse(testEntityDAO.getByID(entity.getId()).isPresent());
+        List<TestEntity> entities = testEntityDAO.getAll();
+        assertEquals(4, entities.size());
     }
 
     @Test
-    void getAll() {
-        Set<String> expectedData = new HashSet<>();
+    void testUpdate() {
+        entity1.setSampleData("UpdatedTest1");
+        testEntityDAO.update(entity1);
 
-        for (int i = 1; i <= 10; ++i) {
-            expectedData.add("data" + i);
-        }
-
-        List<TestEntity> data = testEntityDAO.getAll();
-
-        assertEquals(data.stream().map(TestEntity::getSampleData).collect(Collectors.toSet()), expectedData);
+        Optional<TestEntity> retrievedEntity = testEntityDAO.getByID(entity1.getId());
+        assertTrue(retrievedEntity.isPresent());
+        assertEquals("UpdatedTest1", retrievedEntity.get().getSampleData());
     }
 
     @Test
-    void count() {
+    void testDelete() {
+        testEntityDAO.delete(entity1);
+
+        Optional<TestEntity> retrievedEntity = testEntityDAO.getByID(entity1.getId());
+        assertFalse(retrievedEntity.isPresent());
+    }
+
+    @Test
+    void testGetAll() {
+        List<TestEntity> entities = testEntityDAO.getAll();
+        assertEquals(2, entities.size());
+    }
+
+    @Test
+    void testGetByID() {
+        Optional<TestEntity> retrievedEntity = testEntityDAO.getByID(entity1.getId());
+        assertTrue(retrievedEntity.isPresent());
+        assertEquals("Test1", retrievedEntity.get().getSampleData());
+    }
+
+    @Test
+    void testCount() {
         long count = testEntityDAO.count();
-        assertEquals(count, 10);
+        assertEquals(2, count);
     }
 }
