@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Booking {
+public class Booking implements BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
