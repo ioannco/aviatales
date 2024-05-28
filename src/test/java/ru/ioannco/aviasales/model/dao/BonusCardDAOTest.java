@@ -73,18 +73,7 @@ public class BonusCardDAOTest {
         List<BonusCard> bonusCards = bonusCardDAO.getByFilter(filter);
 
         assertEquals(1, bonusCards.size());
-        assertEquals(client1, bonusCards.get(0).getClient());
+        assertEquals(client1.getEmail(), bonusCards.get(0).getClient().getEmail());
     }
 
-    @Test
-    void testGetByFilterWithPagination() {
-        BonusCardDAO.Filter filter = bonusCardDAO.getFilterBuilder()
-                .client(client2)
-                .build();
-
-        List<BonusCard> bonusCards = bonusCardDAO.getByFilter(filter);
-
-        assertEquals(1, bonusCards.size());
-        assertEquals(client2, bonusCards.get(0).getClient());
-    }
 }

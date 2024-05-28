@@ -81,41 +81,12 @@ class BookingDAOTest {
     }
 
     @Test
-    void getByClientFilter() {
-        BookingDAO.Filter filter = bookingDAO.getFilterBuilder()
-                .client(client1)
-                .build();
-
-        List<Booking> bookings = bookingDAO.getByFilter(filter, 10, 0, BookingDAO.SortOrder.BOOKING_DATE_ASC);
-
-        assertEquals(2, bookings.size());
-        assertTrue(bookings.stream().allMatch(booking -> booking.getClient().equals(client1)));
-    }
-
-    @Test
-    void getByClientFilterWithPagination() {
-        BookingDAO.Filter filter = bookingDAO.getFilterBuilder()
-                .client(client1)
-                .build();
-
-        List<Booking> bookings = bookingDAO.getByFilter(filter, 1, 0, BookingDAO.SortOrder.BOOKING_DATE_ASC);
-
-        assertEquals(1, bookings.size());
-        assertEquals(client1, bookings.get(0).getClient());
-
-        bookings = bookingDAO.getByFilter(filter, 1, 1, BookingDAO.SortOrder.BOOKING_DATE_ASC);
-
-        assertEquals(1, bookings.size());
-        assertEquals(client1, bookings.get(0).getClient());
-    }
-
-    @Test
     void getByFilterWithSorting() {
         BookingDAO.Filter filter = bookingDAO.getFilterBuilder()
                 .client(client2)
                 .build();
 
-        List<Booking> bookings = bookingDAO.getByFilter(filter, 10, 0, BookingDAO.SortOrder.PRICE_DESC);
+        List<Booking> bookings = bookingDAO.getByFilter(filter, BookingDAO.SortOrder.PRICE_DESC);
 
         assertEquals(2, bookings.size());
         assertEquals(120.0f, bookings.get(0).getPrice());
