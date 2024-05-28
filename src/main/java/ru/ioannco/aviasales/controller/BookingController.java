@@ -52,10 +52,13 @@ public class BookingController {
         Flight flight = flightOptional.get();
 
         Optional<Client> clientOptional = clientDAO.getByFilter(ClientDAO.Filter.builder().email(email).build()).stream().findFirst();
-        if (!clientOptional.isPresent()) {
-            return "redirect:/error";
+        Client client;
+        if (clientOptional.isPresent())
+            client = clientOptional.get();
+        else {
+            client = new Client("", "", "", "", email, "");
+            clientDAO.save(client);
         }
-        Client client = clientOptional.get();
 
         Booking booking = new Booking();
         booking.setClient(client);
