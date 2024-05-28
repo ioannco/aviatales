@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.Check;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "flight")
@@ -65,6 +66,10 @@ public class Flight implements BaseEntity {
     @Column(name = "created_dt")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDateTime;
+
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<Booking> bookings;
 
     @PrePersist
     protected void onCreate() {

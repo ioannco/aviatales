@@ -11,7 +11,7 @@ import ru.ioannco.aviasales.model.entity.Flight;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/delete-flight")
+@RequestMapping("/flights/delete")
 public class FlightDeleteController {
 
     @Autowired
