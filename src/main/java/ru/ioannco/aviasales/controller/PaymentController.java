@@ -42,7 +42,6 @@ public class PaymentController {
 
     @PostMapping("/submit")
     public String submitPayment(@RequestParam Long bookingId,
-                                @RequestParam String cardNumber,
                                 @RequestParam(required = false) Long bonusCardId,
                                 @RequestParam(required = false) Integer bonusUsed,
                                 Model model) {

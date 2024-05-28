@@ -10,7 +10,8 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         // Добавляем приветственное сообщение в модель
-        model.addAttribute("greeting", "Добро пожаловать на сайт авиаперевозок!");
+        model.addAttribute("greeting", "Добро пожаловать на Aviatales!");
+        model.addAttribute("description", "Сайт для поиска не очень дешевых авиабилетов.");
 
         // Возвращаем имя шаблона Thymeleaf для рендеринга
         return "index";

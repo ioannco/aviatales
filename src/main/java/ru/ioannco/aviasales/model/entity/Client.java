@@ -3,6 +3,8 @@ package ru.ioannco.aviasales.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "client")
 @Getter
@@ -39,4 +41,10 @@ public class Client implements BaseEntity{
     @NonNull
     @Column(name = "address")
     private String address;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BonusCard> bonusCards;
 }

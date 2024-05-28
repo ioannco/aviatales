@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookingDAO extends BaseDAO<Booking> {
 
     // Метод для получения списка бронирований по фильтру с пагинацией и сортировкой
-    List<Booking> getByFilter(Filter filter, int pageSize, int pageNumber, SortOrder sortOrder);
+    List<Booking> getByFilter(Filter filter, SortOrder sortOrder);
 
     // Фильтр для поиска бронирований
     @Builder

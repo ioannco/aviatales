@@ -10,6 +10,7 @@ public interface ClientDAO extends BaseDAO<Client> {
 
     List<Client> getByFilter(Filter filter);
     List<Client> getByFilterPaginated(Filter filter, int pageSize, int pageNumber);
+    long countByFilter(Filter filter);
 
     @Builder
     @Getter

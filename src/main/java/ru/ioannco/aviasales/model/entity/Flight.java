@@ -17,7 +17,7 @@ import java.util.Date;
 @Check(constraints = "passenger_count <= passenger_limit")
 public class Flight implements BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NonNull

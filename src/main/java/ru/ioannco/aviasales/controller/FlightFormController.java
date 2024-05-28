@@ -58,7 +58,7 @@ public class FlightFormController {
     }
 
     @PostMapping("/save")
-    public String saveFlight(@RequestParam Long id,
+    public String saveFlight(@RequestParam(required = false) Long id,
                              @RequestParam String number,
                              @RequestParam Long airlineId,
                              @RequestParam Long departureAirportId,
@@ -90,10 +90,10 @@ public class FlightFormController {
                 throw new Exception("Аэропорт прилета не найден");
             }
 
-            if (id == null || !flightDAO.getByID(id).isPresent()) {
+            if (id == null) {
                 flight = new Flight();
             } else {
-                flight = flightDAO.getByID(id).get();
+                flight = flightDAO.getByID(id).orElse(new Flight());
             }
 
             flight.setNumber(number);
@@ -106,13 +106,17 @@ public class FlightFormController {
             flight.setPassengerLimit(passengerLimit);
             flight.setPassengerCount(passengerCount);
 
-            if (id == null || !flightDAO.getByID(id).isPresent()) {
+            if (id == null) {
                 flightDAO.save(flight);
             } else {
                 flightDAO.update(flight);
             }
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "redirect:/error";
         } catch (Exception e) {
+            e.printStackTrace();
             return "redirect:/error";
         }
 

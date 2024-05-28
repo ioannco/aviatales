@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class ClientDAOImpl extends BaseDAOImpl<Client> implements ClientDAO {
+
     @Override
     public List<Client> getByFilter(Filter filter) {
         CriteriaQuery<Client> criteriaQuery = createFilterCriteriaQuery(filter);
@@ -29,10 +30,62 @@ public class ClientDAOImpl extends BaseDAOImpl<Client> implements ClientDAO {
                 .getResultList();
     }
 
+    @Override
+    public long countByFilter(Filter filter) {
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+        Root<Client> root = criteriaQuery.from(Client.class);
+        List<Predicate> predicates = createPredicates(filter, builder, root);
+
+        if (filter.getFlightNo() != null || filter.getFlightPayed() != null && filter.getFlightPayed()) {
+            Root<Booking> bookingRoot = criteriaQuery.from(Booking.class);
+            Join<Booking, Client> clientJoin = bookingRoot.join("client");
+            Join<Booking, Flight> flightJoin = bookingRoot.join("flight");
+
+            if (filter.getFlightNo() != null) {
+                predicates.add(builder.like(builder.lower(flightJoin.get("number")), getPattern(filter.getFlightNo().toLowerCase())));
+            }
+            if (filter.getFlightPayed() != null) {
+                if (filter.getFlightPayed())
+                    predicates.add(builder.equal(bookingRoot.get("isPaid"), filter.getFlightPayed()));
+            }
+
+            criteriaQuery.select(builder.countDistinct(clientJoin)).where(predicates.toArray(new Predicate[0]));
+        } else {
+            criteriaQuery.select(builder.count(root)).where(predicates.toArray(new Predicate[0]));
+        }
+
+        return getSession().createQuery(criteriaQuery).getSingleResult();
+    }
+
     private CriteriaQuery<Client> createFilterCriteriaQuery(Filter filter) {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<Client> criteriaQuery = builder.createQuery(Client.class);
         Root<Client> root = criteriaQuery.from(Client.class);
+        List<Predicate> predicates = createPredicates(filter, builder, root);
+
+        if (filter.getFlightNo() != null || filter.getFlightPayed() != null && filter.getFlightPayed()) {
+            Root<Booking> bookingRoot = criteriaQuery.from(Booking.class);
+            Join<Booking, Client> clientJoin = bookingRoot.join("client");
+            Join<Booking, Flight> flightJoin = bookingRoot.join("flight");
+
+            if (filter.getFlightNo() != null) {
+                predicates.add(builder.like(builder.lower(flightJoin.get("number")), getPattern(filter.getFlightNo().toLowerCase())));
+            }
+            if (filter.getFlightPayed() != null) {
+                if (filter.getFlightPayed())
+                    predicates.add(builder.equal(bookingRoot.get("isPaid"), filter.getFlightPayed()));
+            }
+
+            criteriaQuery.select(clientJoin).distinct(true).where(predicates.toArray(new Predicate[0]));
+        } else {
+            criteriaQuery.select(root).where(predicates.toArray(new Predicate[0]));
+        }
+
+        return criteriaQuery;
+    }
+
+    private List<Predicate> createPredicates(Filter filter, CriteriaBuilder builder, Root<Client> root) {
         List<Predicate> predicates = new ArrayList<>();
 
         if (filter.getFirstName() != null) {
@@ -54,31 +107,7 @@ public class ClientDAOImpl extends BaseDAOImpl<Client> implements ClientDAO {
             predicates.add(getLike(builder, root, "address", filter.getAddress()));
         }
 
-        // Если используются join'ы, добавляем предикаты для них
-        if (filter.getFlightNo() != null || filter.getFlightPayed() != null) {
-            Root<Booking> bookingRoot = criteriaQuery.from(Booking.class);
-            Join<Booking, Client> clientJoin = bookingRoot.join("client");
-            Join<Booking, Flight> flightJoin = bookingRoot.join("flight");
-
-            if (filter.getFlightNo() != null) {
-                predicates.add(builder.like(builder.lower(flightJoin.get("number")), getPattern(filter.getFlightNo().toLowerCase())));
-            }
-            if (filter.getFlightPayed() != null) {
-                predicates.add(builder.equal(bookingRoot.get("isPaid"), filter.getFlightPayed()));
-            }
-
-            criteriaQuery.select(clientJoin).distinct(true).where(predicates.toArray(new Predicate[0]));
-        } else {
-            criteriaQuery.select(root).where(predicates.toArray(new Predicate[0]));
-        }
-
-        return criteriaQuery;
-    }
-
-
-    @Override
-    public Filter.FilterBuilder getFilterBuilder() {
-        return Filter.builder();
+        return predicates;
     }
 
     private static String getPattern(String name) {
@@ -87,5 +116,10 @@ public class ClientDAOImpl extends BaseDAOImpl<Client> implements ClientDAO {
 
     private static Predicate getLike(CriteriaBuilder builder, Root<Client> root, String fieldName, String field) {
         return builder.like(builder.lower(root.get(fieldName)), String.format("%%%s%%", field.toLowerCase()));
+    }
+
+    @Override
+    public Filter.FilterBuilder getFilterBuilder() {
+        return Filter.builder();
     }
 }

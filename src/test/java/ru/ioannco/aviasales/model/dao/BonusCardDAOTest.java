@@ -70,7 +70,7 @@ public class BonusCardDAOTest {
                 .client(client1)
                 .build();
 
-        List<BonusCard> bonusCards = bonusCardDAO.getByFilter(filter, 10, 0);
+        List<BonusCard> bonusCards = bonusCardDAO.getByFilter(filter);
 
         assertEquals(1, bonusCards.size());
         assertEquals(client1, bonusCards.get(0).getClient());
@@ -82,7 +82,7 @@ public class BonusCardDAOTest {
                 .client(client2)
                 .build();
 
-        List<BonusCard> bonusCards = bonusCardDAO.getByFilter(filter, 1, 0);
+        List<BonusCard> bonusCards = bonusCardDAO.getByFilter(filter);
 
         assertEquals(1, bonusCards.size());
         assertEquals(client2, bonusCards.get(0).getClient());

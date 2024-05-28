@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Детальная информация о клиенте</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Aviatales</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/flights">Авиарейсы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/clients">Клиенты</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Детальная информация о клиенте</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${client.firstName} + ' ' + ${client.middleName} + ' ' + ${client.lastName}">Имя Отчество Фамилия</h5>
+            <p class="card-text">Телефон: <span th:text="${client.phoneNumber}">Телефон</span></p>
+            <p class="card-text">Email: <span th:text="${client.email}">Email</span></p>
+            <p class="card-text">Адрес: <span th:text="${client.address}">Адрес</span></p>
+
+            <h6>Бонусные карты</h6>
+            <div th:if="${bonusCards.isEmpty()}">
+                <p>У клиента нет бонусных карт.</p>
+            </div>
+            <table class="table" th:if="${not bonusCards.isEmpty()}">
+                <thead>
+                <tr>
+                    <th>ID карты</th>
+                    <th>Бонусы</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="card : ${bonusCards}">
+                    <td th:text="${card.id}">ID карты</td>
+                    <td th:text="${card.bonusAmount}">Бонусы</td>
+                    <td>
+                        <a th:href="@{'/clients/' + ${client.id} + '/deleteBonusCard/' + ${card.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить эту бонусную карту?');">Удалить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <form th:action="@{/clients/{id}/addBonusCard(id=${client.id})}" method="post" class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="bonusAmount" class="sr-only">Бонусы</label>
+                    <input type="number" class="form-control" id="bonusAmount" name="bonusAmount" placeholder="Бонусы" required>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+            </form>
+
+            <h6>Последние заказы</h6>
+            <div th:if="${bookings.isEmpty()}">
+                <p>У клиента нет заказов.</p>
+            </div>
+            <ul th:if="${not bookings.isEmpty()}">
+                <li th:each="booking : ${bookings}">
+                    <span th:text="'Рейс: ' + ${booking.flight.number} + ', Дата: ' + ${booking.flight.departureDateTime}">Заказ</span>
+                </li>
+            </ul>
+            <a th:href="@{'/clients/bookings/' + ${client.id}}" class="btn btn-secondary">Все заказы</a>
+            <a th:href="@{'/clients/edit/' + ${client.id}}" class="btn btn-primary">Редактировать</a>
+            <a th:href="@{'/clients/delete/' + ${client.id}}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этого клиента?');">Удалить</a>
+        </div>
+    </div>
+    <a href="/clients" class="btn btn-primary mt-3">Назад к списку</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

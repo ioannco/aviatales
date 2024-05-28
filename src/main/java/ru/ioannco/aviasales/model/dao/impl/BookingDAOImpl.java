@@ -20,7 +20,7 @@ public class BookingDAOImpl extends BaseDAOImpl<Booking> implements BookingDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Booking> getByFilter(Filter filter, int pageSize, int pageNumber, SortOrder sortOrder) {
+    public List<Booking> getByFilter(Filter filter, SortOrder sortOrder) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Booking> criteriaQuery = builder.createQuery(Booking.class);
@@ -40,8 +40,6 @@ public class BookingDAOImpl extends BaseDAOImpl<Booking> implements BookingDAO {
         }
 
         return session.createQuery(criteriaQuery)
-                .setFirstResult(pageNumber * pageSize)
-                .setMaxResults(pageSize)
                 .getResultList();
     }
 
