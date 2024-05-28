@@ -8,70 +8,70 @@
 </head>
 <body>
 <!-- Шапка сайта -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h2 th:text="${flight.id == null} ? 'Добавление нового рейса' : 'Редактирование рейса'"></h2>
-    <form th:action="@{/flights/save}" method="post">
-        <input type="hidden" name="id" th:value="${flight.id}">
-        <div class="form-group">
+<div class="container mt-5" id="main-container">
+    <h2 th:text="${flight.id == null} ? 'Добавление нового рейса' : 'Редактирование рейса'" id="form-title"></h2>
+    <form th:action="@{/flights/save}" method="post" id="flight-form">
+        <input type="hidden" name="id" th:value="${flight.id}" id="flight-id">
+        <div class="form-group" id="form-group-number">
             <label for="number">Номер рейса</label>
             <input type="text" class="form-control" id="number" name="number" th:value="${flight.number}" placeholder="Введите номер рейса">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-airline">
             <label for="airline">Авиакомпания</label>
             <select class="form-control" id="airline" name="airlineId">
                 <option th:each="airline : ${airlines}" th:value="${airline.id}" th:text="${airline.verbose}"></option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-departure-airport">
             <label for="departureAirport">Аэропорт вылета</label>
             <select class="form-control" id="departureAirport" name="departureAirportId">
                 <option th:each="airport : ${airports}" th:value="${airport.id}" th:text="${airport.verbose}"></option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-arrival-airport">
             <label for="arrivalAirport">Аэропорт прилета</label>
             <select class="form-control" id="arrivalAirport" name="arrivalAirportId">
                 <option th:each="airport : ${airports}" th:value="${airport.id}" th:text="${airport.verbose}"></option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-departure-datetime">
             <label for="departureDateTime">Время вылета</label>
             <input type="datetime-local" class="form-control" id="departureDateTime" name="departureDateTimeStr" th:value="${#dates.format(flight.departureDateTime, dateTimePattern)}">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-arrival-datetime">
             <label for="arrivalDateTime">Время прилета</label>
             <input type="datetime-local" class="form-control" id="arrivalDateTime" name="arrivalDateTimeStr" th:value="${#dates.format(flight.arrivalDateTime, dateTimePattern)}">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-price">
             <label for="price">Стоимость</label>
             <input type="number" class="form-control" id="price" name="price" th:value="${flight.price}" placeholder="Введите стоимость">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-passenger-limit">
             <label for="passengerLimit">Лимит пассажиров</label>
             <input type="number" class="form-control" id="passengerLimit" name="passengerLimit" th:value="${flight.passengerLimit}" placeholder="Введите лимит пассажиров">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-passenger-count">
             <label for="passengerCount">Количество пассажиров</label>
             <input type="number" class="form-control" id="passengerCount" name="passengerCount" th:value="${flight.passengerCount}" placeholder="Введите количество пассажиров">
         </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary" id="save-button">Сохранить</button>
     </form>
 </div>
 

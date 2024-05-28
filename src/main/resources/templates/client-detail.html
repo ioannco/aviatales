@@ -6,37 +6,37 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h1>Детальная информация о клиенте</h1>
-    <div class="card">
+<div class="container mt-5" id="main-container">
+    <h1 id="page-title">Детальная информация о клиенте</h1>
+    <div class="card" id="client-details-card">
         <div class="card-body">
-            <h5 class="card-title" th:text="${client.firstName} + ' ' + ${client.middleName} + ' ' + ${client.lastName}">Имя Отчество Фамилия</h5>
-            <p class="card-text">Телефон: <span th:text="${client.phoneNumber}">Телефон</span></p>
-            <p class="card-text">Email: <span th:text="${client.email}">Email</span></p>
-            <p class="card-text">Адрес: <span th:text="${client.address}">Адрес</span></p>
+            <h5 class="card-title" th:text="${client.firstName} + ' ' + ${client.middleName} + ' ' + ${client.lastName}" id="client-name">Имя Отчество Фамилия</h5>
+            <p class="card-text">Телефон: <span th:text="${client.phoneNumber}" id="client-phone">Телефон</span></p>
+            <p class="card-text">Email: <span th:text="${client.email}" id="client-email">Email</span></p>
+            <p class="card-text">Адрес: <span th:text="${client.address}" id="client-address">Адрес</span></p>
 
-            <h6>Бонусные карты</h6>
-            <div th:if="${bonusCards.isEmpty()}">
+            <h6 id="bonus-cards-title">Бонусные карты</h6>
+            <div th:if="${bonusCards.isEmpty()}" id="no-bonus-cards-message">
                 <p>У клиента нет бонусных карт.</p>
             </div>
-            <table class="table" th:if="${not bonusCards.isEmpty()}">
+            <table class="table" th:if="${not bonusCards.isEmpty()}" id="bonus-cards-table">
                 <thead>
                 <tr>
                     <th>ID карты</th>
@@ -45,39 +45,39 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="card : ${bonusCards}">
-                    <td th:text="${card.id}">ID карты</td>
-                    <td th:text="${card.bonusAmount}">Бонусы</td>
+                <tr th:each="card : ${bonusCards}" id="bonus-card-row">
+                    <td th:text="${card.id}" id="bonus-card-id">ID карты</td>
+                    <td th:text="${card.bonusAmount}" id="bonus-card-amount">Бонусы</td>
                     <td>
-                        <a th:href="@{'/clients/' + ${client.id} + '/deleteBonusCard/' + ${card.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить эту бонусную карту?');">Удалить</a>
+                        <a th:href="@{'/clients/' + ${client.id} + '/deleteBonusCard/' + ${card.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить эту бонусную карту?');" id="delete-bonus-card-button">Удалить</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
-            <form th:action="@{/clients/{id}/addBonusCard(id=${client.id})}" method="post" class="form-inline">
-                <div class="form-group mx-sm-3 mb-2">
+            <form th:action="@{/clients/{id}/addBonusCard(id=${client.id})}" method="post" class="form-inline" id="add-bonus-card-form">
+                <div class="form-group mx-sm-3 mb-2" id="form-group-bonus-amount">
                     <label for="bonusAmount" class="sr-only">Бонусы</label>
                     <input type="number" class="form-control" id="bonusAmount" name="bonusAmount" placeholder="Бонусы" required>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+                <button type="submit" class="btn btn-primary mb-2" id="add-bonus-card-button">Добавить</button>
             </form>
 
-            <h6>Последние заказы</h6>
-            <div th:if="${bookings.isEmpty()}">
+            <h6 id="recent-bookings-title">Последние заказы</h6>
+            <div th:if="${bookings.isEmpty()}" id="no-bookings-message">
                 <p>У клиента нет заказов.</p>
             </div>
-            <ul th:if="${not bookings.isEmpty()}">
-                <li th:each="booking : ${bookings}">
+            <ul th:if="${not bookings.isEmpty()}" id="recent-bookings-list">
+                <li th:each="booking : ${bookings}" id="recent-booking-item">
                     <span th:text="'Рейс: ' + ${booking.flight.number} + ', Дата: ' + ${booking.flight.departureDateTime}">Заказ</span>
                 </li>
             </ul>
-            <a th:href="@{'/clients/bookings/' + ${client.id}}" class="btn btn-secondary">Все заказы</a>
-            <a th:href="@{'/clients/edit/' + ${client.id}}" class="btn btn-primary">Редактировать</a>
-            <a th:href="@{'/clients/delete/' + ${client.id}}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этого клиента?');">Удалить</a>
+            <a th:href="@{'/clients/bookings/' + ${client.id}}" class="btn btn-secondary" id="all-bookings-button">Все заказы</a>
+            <a th:href="@{'/clients/edit/' + ${client.id}}" class="btn btn-primary" id="edit-client-button">Редактировать</a>
+            <a th:href="@{'/clients/delete/' + ${client.id}}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этого клиента?');" id="delete-client-button">Удалить</a>
         </div>
     </div>
-    <a href="/clients" class="btn btn-primary mt-3">Назад к списку</a>
+    <a href="/clients" class="btn btn-primary mt-3" id="back-to-clients-button">Назад к списку</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

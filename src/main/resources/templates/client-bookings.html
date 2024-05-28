@@ -6,29 +6,29 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h1>Заказы клиента</h1>
-    <div th:if="${bookings.isEmpty()}">
+<div class="container mt-5" id="main-container">
+    <h1 id="page-title">Заказы клиента</h1>
+    <div th:if="${bookings.isEmpty()}" id="no-bookings-message">
         <p>У клиента нет заказов.</p>
     </div>
-    <table class="table table-striped" th:if="${not bookings.isEmpty()}">
+    <table class="table table-striped" th:if="${not bookings.isEmpty()}" id="bookings-table">
         <thead>
         <tr>
             <th>Рейс</th>
@@ -40,19 +40,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="booking : ${bookings}">
-            <td th:text="${booking.flight.number}">Рейс</td>
-            <td th:text="${booking.flight.departureDateTime}">Дата вылета</td>
-            <td th:text="${booking.flight.arrivalDateTime}">Дата прилета</td>
-            <td th:text="${booking.price}">Стоимость</td>
-            <td th:text="${booking.isPaid ? 'Оплачено' : 'Не оплачено'}">Оплата</td>
+        <tr th:each="booking : ${bookings}" id="booking-row">
+            <td th:text="${booking.flight.number}" id="flight-number">Рейс</td>
+            <td th:text="${booking.flight.departureDateTime}" id="departure-datetime">Дата вылета</td>
+            <td th:text="${booking.flight.arrivalDateTime}" id="arrival-datetime">Дата прилета</td>
+            <td th:text="${booking.price}" id="price">Стоимость</td>
+            <td th:text="${booking.isPaid ? 'Оплачено' : 'Не оплачено'}" id="payment-status">Оплата</td>
             <td>
-                <a th:if="${not booking.isPaid}" th:href="@{'/payment/' + ${booking.id}}" class="btn btn-success btn-sm" onclick="return confirm('Вы уверены, что хотите оплатить этот заказ?');">Оплатить</a>
+                <a th:if="${not booking.isPaid}" th:href="@{'/payment/' + ${booking.id}}" class="btn btn-success btn-sm" onclick="return confirm('Вы уверены, что хотите оплатить этот заказ?');" id="pay-button">Оплатить</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="/clients" class="btn btn-primary mt-3">Назад к списку</a>
+    <a href="/clients" class="btn btn-primary mt-3" id="back-to-clients-button">Назад к списку</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

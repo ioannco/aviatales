@@ -8,56 +8,56 @@
 </head>
 <body>
 <!-- Шапка сайта -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h2 th:text="${client.id == null} ? 'Добавление нового клиента' : 'Редактирование клиента'"></h2>
-    <form th:action="@{/clients/save}" method="post">
-        <input type="hidden" name="id" th:value="${client.id}">
-        <div class="form-group">
+<div class="container mt-5" id="main-container">
+    <h2 th:text="${client.id == null} ? 'Добавление нового клиента' : 'Редактирование клиента'" id="form-title"></h2>
+    <form th:action="@{/clients/save}" method="post" id="client-form">
+        <input type="hidden" name="id" th:value="${client.id}" id="client-id">
+        <div class="form-group" id="form-group-firstname">
             <label for="firstName">Имя</label>
             <input type="text" class="form-control" id="firstName" name="firstName" th:value="${client.firstName}" placeholder="Введите имя" required>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-middlename">
             <label for="middleName">Отчество</label>
             <input type="text" class="form-control" id="middleName" name="middleName" th:value="${client.middleName}" placeholder="Введите отчество">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-lastname">
             <label for="lastName">Фамилия</label>
             <input type="text" class="form-control" id="lastName" name="lastName" th:value="${client.lastName}" placeholder="Введите фамилию" required>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-phone">
             <label for="phoneNumber">Телефон</label>
             <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:value="${client.phoneNumber}" placeholder="Введите телефон" required>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-email">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" th:value="${client.email}" placeholder="Введите email" required>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-address">
             <label for="address">Адрес</label>
             <input type="text" class="form-control" id="address" name="address" th:value="${client.address}" placeholder="Введите адрес">
         </div>
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary" id="save-button">Сохранить</button>
     </form>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
+<!-- Bootstrap JS и зависимости -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

@@ -6,47 +6,47 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h2>Оплата заказа</h2>
-    <p th:text="'Рейс: ' + ${booking.flight.number}"></p>
-    <p th:text="'Клиент: ' + ${booking.client.email}"></p>
-    <p th:text="'Стоимость: ' + ${booking.price} + ' руб.'"></p>
-    <form th:action="@{/payment/submit}" method="post">
-        <input type="hidden" name="bookingId" th:value="${booking.id}">
-        <div class="form-group">
+<div class="container mt-5" id="main-container">
+    <h2 id="page-title">Оплата заказа</h2>
+    <p id="flight-info" th:text="'Рейс: ' + ${booking.flight.number}"></p>
+    <p id="client-info" th:text="'Клиент: ' + ${booking.client.email}"></p>
+    <p id="price-info" th:text="'Стоимость: ' + ${booking.price} + ' руб.'"></p>
+    <form th:action="@{/payment/submit}" method="post" id="payment-form">
+        <input type="hidden" name="bookingId" th:value="${booking.id}" id="booking-id">
+        <div class="form-group" id="form-group-card-number">
             <label for="cardNumber">Номер карты</label>
             <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Введите номер карты">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-bonus-card">
             <label for="bonusCardId">Выберите бонусную карту (необязательно)</label>
             <select class="form-control" id="bonusCardId" name="bonusCardId">
                 <option value="">--Не выбрано--</option>
                 <option th:each="bonusCard : ${bonusCards}" th:value="${bonusCard.id}" th:text="${bonusCard.id} + ' (Бонусы: ' + ${bonusCard.bonusAmount} + ')'"></option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="form-group-bonus-used">
             <label for="bonusUsed">Использовать бонусов (необязательно)</label>
             <input type="number" class="form-control" id="bonusUsed" name="bonusUsed" placeholder="Введите количество бонусов">
         </div>
-        <button type="submit" class="btn btn-primary">Оплатить</button>
-        <a href="/flights" class="btn btn-secondary">Отменить</a>
+        <button type="submit" class="btn btn-primary" id="pay-button">Оплатить</button>
+        <a href="/flights" class="btn btn-secondary" id="cancel-button">Отменить</a>
     </form>
 </div>
 

@@ -7,59 +7,59 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center">
+<div class="container mt-5" id="main-container">
+    <div class="d-flex justify-content-between align-items-center" id="header">
         <h1>Список клиентов</h1>
-        <a href="/clients/add" class="btn btn-success">Добавить нового клиента</a>
+        <a href="/clients/add" class="btn btn-success" id="add-client-button">Добавить нового клиента</a>
     </div>
 
-    <form th:action="@{/clients}" method="get" class="form-inline mb-3">
-        <div class="form-group mb-2">
+    <form th:action="@{/clients}" method="get" class="form-inline mb-3" id="search-form">
+        <div class="form-group mb-2" id="form-group-firstname">
             <input type="text" class="form-control" name="firstName" placeholder="Имя" th:value="${firstName}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-middlename">
             <input type="text" class="form-control" name="middleName" placeholder="Отчество" th:value="${middleName}">
         </div>
-        <div class="form-group mb-2">
+        <div class="form-group mb-2" id="form-group-lastname">
             <input type="text" class="form-control" name="lastName" placeholder="Фамилия" th:value="${lastName}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-phone">
             <input type="text" class="form-control" name="phoneNumber" placeholder="Телефон" th:value="${phoneNumber}">
         </div>
-        <div class="form-group mb-2">
+        <div class="form-group mb-2" id="form-group-email">
             <input type="text" class="form-control" name="email" placeholder="Email" th:value="${email}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-address">
             <input type="text" class="form-control" name="address" placeholder="Адрес" th:value="${address}">
         </div>
-        <div class="form-group mb-2">
+        <div class="form-group mb-2" id="form-group-flightno">
             <input type="text" class="form-control" name="flightNo" placeholder="Номер рейса" th:value="${flightNo}">
         </div>
-        <div class="form-group mx-sm-3 mb-2 form-check">
+        <div class="form-group mx-sm-3 mb-2 form-check" id="form-group-payed">
             <input type="checkbox" class="form-check-input" name="flightPayed" th:checked="${flightPayed}">
             <label class="form-check-label" for="flightPayed">Оплачен</label>
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Поиск</button>
+        <button type="submit" class="btn btn-primary mb-2" id="search-button">Поиск</button>
     </form>
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="clients-table">
         <thead>
         <tr>
             <th>Имя</th>
@@ -72,7 +72,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="client : ${clients}">
+        <tr th:each="client : ${clients}" id="client-row">
             <td th:text="${client.firstName}">Имя</td>
             <td th:text="${client.middleName}">Отчество</td>
             <td th:text="${client.lastName}">Фамилия</td>
@@ -80,22 +80,22 @@
             <td th:text="${client.email}">Email</td>
             <td th:text="${client.address}">Адрес</td>
             <td>
-                <a th:href="@{'/clients/' + ${client.id}}" class="btn btn-info btn-sm">Подробнее</a>
+                <a th:href="@{'/clients/' + ${client.id}}" class="btn btn-info btn-sm" id="details-button">Подробнее</a>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <nav>
+    <nav id="pagination">
         <ul class="pagination">
             <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item">
-                <a th:href="@{'/clients?page=' + (${currentPage - 1})}" class="page-link">Предыдущая</a>
+                <a th:href="@{'/clients?page=' + (${currentPage - 1})}" class="page-link" id="prev-page">Предыдущая</a>
             </li>
             <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item">
-                <a th:href="@{'/clients?page=' + ${i}}" class="page-link" th:text="${i + 1}">1</a>
+                <a th:href="@{'/clients?page=' + ${i}}" class="page-link" th:text="${i + 1}" id="page-link">1</a>
             </li>
             <li th:classappend="${currentPage + 1 >= totalPages} ? 'disabled' : ''" class="page-item">
-                <a th:href="@{'/clients?page=' + (${currentPage + 1})}" class="page-link">Следующая</a>
+                <a th:href="@{'/clients?page=' + (${currentPage + 1})}" class="page-link" id="next-page">Следующая</a>
             </li>
         </ul>
     </nav>

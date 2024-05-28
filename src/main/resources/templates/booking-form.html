@@ -6,34 +6,34 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <h2>Заказ билета</h2>
-    <p th:text="'Рейс: ' + ${flight.number}"></p>
-    <p th:text="'Стоимость: ' + ${flight.price} + ' руб.'"></p>
-    <form th:action="@{/book/submit}" method="post">
-        <input type="hidden" name="flightId" th:value="${flight.id}">
-        <div class="form-group">
+<div class="container mt-5" id="main-container">
+    <h2 id="page-title">Заказ билета</h2>
+    <p th:text="'Рейс: ' + ${flight.number}" id="flight-number">Рейс</p>
+    <p th:text="'Стоимость: ' + ${flight.price} + ' руб.'" id="flight-price">Стоимость</p>
+    <form th:action="@{/book/submit}" method="post" id="booking-form">
+        <input type="hidden" name="flightId" th:value="${flight.id}" id="flight-id">
+        <div class="form-group" id="form-group-email">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Введите email">
         </div>
-        <button type="submit" class="btn btn-primary">Оформить заказ</button>
+        <button type="submit" class="btn btn-primary" id="submit-button">Оформить заказ</button>
     </form>
 </div>
 

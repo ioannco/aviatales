@@ -8,95 +8,95 @@
 </head>
 <body>
 <!-- Шапка сайта -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <a class="navbar-brand" href="/" id="navbar-brand">Aviatales</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="nav-home">
                 <a class="nav-link" href="/">Главная</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-flights">
                 <a class="nav-link" href="/flights">Авиарейсы</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="nav-clients">
                 <a class="nav-link" href="/clients">Клиенты</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center">
+<div class="container mt-5" id="main-container">
+    <div class="d-flex justify-content-between align-items-center" id="header">
         <h1>Авиарейсы</h1>
-        <a href="/flights/add" class="btn btn-success">Создать новый рейс</a>
+        <a href="/flights/add" class="btn btn-success" id="add-flight-button">Создать новый рейс</a>
     </div>
 
-    <form th:action="@{/flights}" method="get" class="form-inline mb-3">
-        <div class="form-group mb-2">
+    <form th:action="@{/flights}" method="get" class="form-inline mb-3" id="search-form">
+        <div class="form-group mb-2" id="form-group-departure-date">
             <label for="departureDate" class="sr-only">Дата вылета</label>
             <input type="date" id="departureDate" name="departureDate" class="form-control" placeholder="Дата вылета" th:value="${departureDate}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-arrival-date">
             <label for="arrivalDate" class="sr-only">Дата прилета</label>
             <input type="date" id="arrivalDate" name="arrivalDate" class="form-control" placeholder="Дата прилета" th:value="${arrivalDate}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-departure-city">
             <label for="departureCity" class="sr-only">Город вылета</label>
             <input type="text" id="departureCity" name="departureCity" class="form-control" placeholder="Город вылета" th:value="${departureCity}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-arrival-city">
             <label for="arrivalCity" class="sr-only">Город прилета</label>
             <input type="text" id="arrivalCity" name="arrivalCity" class="form-control" placeholder="Город прилета" th:value="${arrivalCity}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-departure-airport">
             <label for="departureAirport" class="sr-only">Аэропорт вылета</label>
             <input type="text" id="departureAirport" name="departureAirport" class="form-control" placeholder="Аэропорт вылета" th:value="${departureAirport}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-arrival-airport">
             <label for="arrivalAirport" class="sr-only">Аэропорт прилета</label>
             <input type="text" id="arrivalAirport" name="arrivalAirport" class="form-control" placeholder="Аэропорт прилета" th:value="${arrivalAirport}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-airline">
             <label for="airline" class="sr-only">Авиакомпания</label>
             <input type="text" id="airline" name="airline" class="form-control" placeholder="Авиакомпания" th:value="${airline}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-flight-number">
             <label for="flightNumber" class="sr-only">Номер рейса</label>
             <input type="text" id="flightNumber" name="flightNumber" class="form-control" placeholder="Номер рейса" th:value="${flightNumber}">
         </div>
-        <div class="form-group mx-sm-3 mb-2 form-check">
+        <div class="form-group mx-sm-3 mb-2 form-check" id="form-group-purchasable">
             <input type="checkbox" id="purchasable" name="purchasable" class="form-check-input" th:checked="${purchasable}">
             <label for="purchasable" class="form-check-label">Можно купить</label>
         </div>
-        <div class="form-group mx-sm-3 mb-2 form-check">
+        <div class="form-group mx-sm-3 mb-2 form-check" id="form-group-available-seats">
             <input type="checkbox" id="availableSeats" name="availableSeats" class="form-check-input" th:checked="${availableSeats}">
             <label for="availableSeats" class="form-check-label">Есть свободные места</label>
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-min-price">
             <label for="minPrice" class="sr-only">Минимальная цена</label>
             <input type="number" id="minPrice" name="minPrice" class="form-control" placeholder="Минимальная цена" th:value="${minPrice}">
         </div>
-        <div class="form-group mx-sm-3 mb-2">
+        <div class="form-group mx-sm-3 mb-2" id="form-group-max-price">
             <label for="maxPrice" class="sr-only">Максимальная цена</label>
             <input type="number" id="maxPrice" name="maxPrice" class="form-control" placeholder="Максимальная цена" th:value="${maxPrice}">
         </div>
         <input type="hidden" name="sortField" th:value="${sortField}">
         <input type="hidden" name="sortAsc" th:value="${sortAsc}">
-        <button type="submit" class="btn btn-primary mb-2">Поиск</button>
+        <button type="submit" class="btn btn-primary mb-2" id="search-button">Поиск</button>
     </form>
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="flights-table">
         <thead>
         <tr>
             <th>
-                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=departureTime&sortAsc=true'}">Дата и время вылета &uarr;</a>
+                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=departureTime&sortAsc=true'}" id="sort-departure-time-asc">Дата и время вылета &uarr;</a>
                 |
-                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=departureTime&sortAsc=false'}">&darr;</a>
+                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=departureTime&sortAsc=false'}" id="sort-departure-time-desc">&darr;</a>
             </th>
             <th>
-                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=arrivalTime&sortAsc=true'}">Дата и время прилета &uarr;</a>
+                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=arrivalTime&sortAsc=true'}" id="sort-arrival-time-asc">Дата и время прилета &uarr;</a>
                 |
-                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=arrivalTime&sortAsc=false'}">&darr;</a>
+                <a th:href="@{'/flights?departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=arrivalTime&sortAsc=false'}" id="sort-arrival-time-desc">&darr;</a>
             </th>
             <th>Аэропорт и город вылета</th>
             <th>Аэропорт и город прилета</th>
@@ -106,7 +106,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="flight : ${flights}">
+        <tr th:each="flight : ${flights}" id="flight-row">
             <td th:text="${flight.departureDateTime}">Дата и время вылета</td>
             <td th:text="${flight.arrivalDateTime}">Дата и время прилета</td>
             <td>
@@ -120,23 +120,23 @@
             <td th:text="${#dates.format(flight.arrivalDateTime.time - flight.departureDateTime.time, 'HH:mm')}">Время в полете</td>
             <td th:text="${flight.price}">Стоимость</td>
             <td>
-                <a th:href="@{'/flight/' + ${flight.id}}" class="btn btn-info btn-sm">Подробнее</a>
-                <a th:href="@{'/book/' + ${flight.id}}" th:if="${flight.passengerLimit > flight.passengerCount and flight.departureDateTime > currentDate}" class="btn btn-primary btn-sm">Заказать</a>
+                <a th:href="@{'/flight/' + ${flight.id}}" class="btn btn-info btn-sm" id="details-button">Подробнее</a>
+                <a th:href="@{'/book/' + ${flight.id}}" th:if="${flight.passengerLimit > flight.passengerCount and flight.departureDateTime > currentDate}" class="btn btn-primary btn-sm" id="book-button">Заказать</a>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <nav>
+    <nav id="pagination">
         <ul class="pagination">
             <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item">
-                <a th:href="@{'/flights?page=' + (${currentPage - 1}) + '&departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=' + ${sortField} + '&sortAsc=' + ${sortAsc}}" class="page-link">Предыдущая</a>
+                <a th:href="@{'/flights?page=' + (${currentPage - 1}) + '&departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=' + ${sortField} + '&sortAsc=' + ${sortAsc}}" class="page-link" id="prev-page">Предыдущая</a>
             </li>
             <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item">
-                <a th:href="@{'/flights?page=' + ${i} + '&departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=' + ${sortField} + '&sortAsc=' + ${sortAsc}}" class="page-link" th:text="${i + 1}">1</a>
+                <a th:href="@{'/flights?page=' + ${i} + '&departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=' + ${sortField} + '&sortAsc=' + ${sortAsc}}" class="page-link" th:text="${i + 1}" id="page-link">1</a>
             </li>
             <li th:classappend="${currentPage + 1 >= totalPages} ? 'disabled' : ''" class="page-item">
-                <a th:href="@{'/flights?page=' + (${currentPage + 1}) + '&departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=' + ${sortField} + '&sortAsc=' + ${sortAsc}}" class="page-link">Следующая</a>
+                <a th:href="@{'/flights?page=' + (${currentPage + 1}) + '&departureDate=' + ${departureDate} + '&arrivalDate=' + ${arrivalDate} + '&departureCity=' + ${departureCity} + '&arrivalCity=' + ${arrivalCity} + '&departureAirport=' + ${departureAirport} + '&arrivalAirport=' + ${arrivalAirport} + '&airline=' + ${airline} + '&flightNumber=' + ${flightNumber} + '&purchasable=' + ${purchasable} + '&availableSeats=' + ${availableSeats} + '&minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&sortField=' + ${sortField} + '&sortAsc=' + ${sortAsc}}" class="page-link" id="next-page">Следующая</a>
             </li>
         </ul>
     </nav>

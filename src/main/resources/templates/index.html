@@ -8,53 +8,53 @@
 </head>
 <body>
 <!-- Шапка сайта -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Aviatales</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+  <a class="navbar-brand" href="/" id="navbarBrand">Aviatales</a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Главная</a>
+      <li class="nav-item" id="navItemHome">
+        <a class="nav-link" href="/" id="navLinkHome">Главная</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/flights">Авиарейсы</a>
+      <li class="nav-item" id="navItemFlights">
+        <a class="nav-link" href="/flights" id="navLinkFlights">Авиарейсы</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/clients">Клиенты</a>
+      <li class="nav-item" id="navItemClients">
+        <a class="nav-link" href="/clients" id="navLinkClients">Клиенты</a>
       </li>
     </ul>
   </div>
 </nav>
 
-<div class="container mt-5">
-  <h1 th:text="${greeting}">Приветствие</h1>
-  <p th:text="${description}">Краткое описание сервиса</p>
+<div class="container mt-5" id="mainContainer">
+  <h1 id="greeting" th:text="${greeting}">Приветствие</h1>
+  <p id="description" th:text="${description}">Краткое описание сервиса</p>
 
-  <form th:action="@{/flights}" method="get" class="form-inline">
-    <div class="form-group mb-2">
+  <form th:action="@{/flights}" method="get" class="form-inline" id="searchForm">
+    <div class="form-group mb-2" id="formGroupDepartureDate">
       <label for="departureDate" class="sr-only">Дата вылета</label>
       <input type="date" id="departureDate" name="departureDate" class="form-control" placeholder="Дата вылета">
     </div>
-    <div class="form-group mx-sm-3 mb-2">
+    <div class="form-group mx-sm-3 mb-2" id="formGroupArrivalDate">
       <label for="arrivalDate" class="sr-only">Дата прилета</label>
       <input type="date" id="arrivalDate" name="arrivalDate" class="form-control" placeholder="Дата прилета">
     </div>
-    <div class="form-group mx-sm-3 mb-2">
+    <div class="form-group mx-sm-3 mb-2" id="formGroupDepartureCity">
       <label for="departureCity" class="sr-only">Город вылета</label>
       <input type="text" id="departureCity" name="departureCity" class="form-control" placeholder="Город вылета">
     </div>
-    <div class="form-group mx-sm-3 mb-2">
+    <div class="form-group mx-sm-3 mb-2" id="formGroupArrivalCity">
       <label for="arrivalCity" class="sr-only">Город прилета</label>
       <input type="text" id="arrivalCity" name="arrivalCity" class="form-control" placeholder="Город прилета">
     </div>
-    <div class="form-group mx-sm-3 mb-2">
+    <div class="form-group mx-sm-3 mb-2" id="formGroupAirline">
       <label for="airline" class="sr-only">Авиакомпания</label>
       <input type="text" id="airline" name="airline" class="form-control" placeholder="Авиакомпания">
     </div>
-    <div class="form-group mx-sm-3 mb-2">
+    <div class="form-group mx-sm-3 mb-2" id="formGroupFlightNumber">
       <label for="flightNumber" class="sr-only">Номер рейса</label>
       <input type="text" id="flightNumber" name="flightNumber" class="form-control" placeholder="Номер рейса">
     </div>
-    <button type="submit" class="btn btn-primary mb-2">Поиск</button>
+    <button type="submit" class="btn btn-primary mb-2" id="searchButton">Поиск</button>
   </form>
 </div>
 
