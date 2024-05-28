@@ -162,3 +162,5 @@
 тестирования Selenium. Было написано 9 интеграционных тестов для проверки основных функций сайта:
 
 ![Selenium test results](readme-img/selenium-tests.png)
+
+[Демонстрационная версия сайта](http://aviatales.ioannco.ru/) (может быть недоступна)
