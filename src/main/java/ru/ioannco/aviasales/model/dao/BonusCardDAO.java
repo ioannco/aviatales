@@ -10,7 +10,7 @@ import java.util.List;
 public interface BonusCardDAO extends BaseDAO<BonusCard> {
 
     // Метод для получения списка бонусных карт по фильтру с пагинацией
-    List<BonusCard> getByFilter(Filter filter, int pageSize, int pageNumber);
+    List<BonusCard> getByFilter(Filter filter);
 
     // Фильтр для поиска бонусных карт
     @Builder

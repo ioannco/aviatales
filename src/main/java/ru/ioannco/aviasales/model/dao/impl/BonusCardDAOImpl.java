@@ -20,7 +20,7 @@ public class BonusCardDAOImpl extends BaseDAOImpl<BonusCard> implements BonusCar
     private SessionFactory sessionFactory;
 
     @Override
-    public List<BonusCard> getByFilter(Filter filter, int pageSize, int pageNumber) {
+    public List<BonusCard> getByFilter(Filter filter) {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<BonusCard> criteriaQuery = builder.createQuery(BonusCard.class);
@@ -34,10 +34,7 @@ public class BonusCardDAOImpl extends BaseDAOImpl<BonusCard> implements BonusCar
 
         criteriaQuery.select(root).where(predicates.toArray(new Predicate[0]));
 
-        return session.createQuery(criteriaQuery)
-                .setFirstResult(pageNumber * pageSize)
-                .setMaxResults(pageSize)
-                .getResultList();
+        return session.createQuery(criteriaQuery).getResultList();
     }
 
     @Override

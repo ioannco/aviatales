@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали рейса</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Шапка сайта -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Авиаперевозки</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/flights">Авиарейсы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/clients">Клиенты</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Детали рейса</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Рейс: <span th:text="${flight.number}">Номер рейса</span></h5>
+            <p class="card-text">Авиакомпания: <span th:text="${flight.airline.verbose}">Авиакомпания</span></p>
+            <p class="card-text">Аэропорт вылета: <span th:text="${flight.departureAirport.verbose}">Аэропорт вылета</span>, <span th:text="${flight.departureAirport.city.verbose}">Город вылета</span></p>
+            <p class="card-text">Аэропорт прилета: <span th:text="${flight.arrivalAirport.verbose}">Аэропорт прилета</span>, <span th:text="${flight.arrivalAirport.city.verbose}">Город прилета</span></p>
+            <p class="card-text">Дата и время вылета: <span th:text="${#dates.format(flight.departureDateTime, 'dd-MM-yyyy HH:mm')}">Дата и время вылета</span></p>
+            <p class="card-text">Дата и время прилета: <span th:text="${#dates.format(flight.arrivalDateTime, 'dd-MM-yyyy HH:mm')}">Дата и время прилета</span></p>
+            <p class="card-text">Стоимость билета: <span th:text="${flight.price}">Стоимость</span> руб.</p>
+            <p class="card-text">Доступные места: <span th:text="${flight.passengerLimit - flight.passengerCount}">Количество мест</span></p>
+
+            <div th:if="${flight.passengerLimit > flight.passengerCount and flight.departureDateTime > #dates.createNow()}">
+                <a th:href="@{'/book/' + ${flight.id}}" class="btn btn-primary">Заказать</a>
+            </div>
+            <div th:unless="${flight.passengerLimit > flight.passengerCount and flight.departureDateTime > #dates.createNow()}">
+                <p class="text-danger">Покупка билетов на данный рейс закрыта.</p>
+            </div>
+            <a th:href="@{'/flights/edit/' + ${flight.id}}" class="btn btn-secondary">Редактировать</a>
+            <a th:href="@{'/flights/delete/' + ${flight.id}}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот рейс?');">Удалить</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
